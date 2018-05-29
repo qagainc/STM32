@@ -7,7 +7,7 @@
 #include "key.h"  
 
 
-//ÒªĞ´Èëµ½24c02µÄ×Ö·û´®Êı×é
+//è¦å†™å…¥åˆ°24c02çš„å­—ç¬¦ä¸²æ•°ç»„
 const u8 TEXT_Buffer[]={"Explorer STM32F4 IIC TEST"};
 #define SIZE sizeof(TEXT_Buffer)	 
 	
@@ -15,65 +15,66 @@ int main(void)
 { 
     u16 h111;
      u16 h222;
+    u16 h333;
 	u8 key;
 	u16 i=0;
     u8 num;
 	u8 datatemp[SIZE];	
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ÉèÖÃÏµÍ³ÖĞ¶ÏÓÅÏÈ¼¶·Ö×é2
-	delay_init(168);    //³õÊ¼»¯ÑÓÊ±º¯Êı
-	uart_init(115200);	//³õÊ¼»¯´®¿Ú²¨ÌØÂÊÎª115200
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//è®¾ç½®ç³»ç»Ÿä¸­æ–­ä¼˜å…ˆçº§åˆ†ç»„2
+	delay_init(168);    //åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+	uart_init(115200);	//åˆå§‹åŒ–ä¸²å£æ³¢ç‰¹ç‡ä¸º115200
 	
-	LED_Init();					//³õÊ¼»¯LED 
- 	LCD_Init();					//LCD³õÊ¼»¯ 
-	KEY_Init(); 				//°´¼ü³õÊ¼»¯  
-	AT24CXX_Init();			//IIC³õÊ¼»¯ 
+	LED_Init();					//åˆå§‹åŒ–LED 
+ 	LCD_Init();					//LCDåˆå§‹åŒ– 
+	KEY_Init(); 				//æŒ‰é”®åˆå§‹åŒ–  
+	AT24CXX_Init();			//IICåˆå§‹åŒ– 
  	POINT_COLOR=RED; 
 	LCD_ShowString(30,50,200,16,16,"Explorer STM32F4");	
 	LCD_ShowString(30,70,200,16,16,"IIC TEST");	
 	LCD_ShowString(30,90,200, 16,16,"ATOM@ALIENTEK");
 	LCD_ShowString(30,110,200,16,16,"2014/5/6");	 
-	LCD_ShowString(30,130,200,16,16,"KEY1:Write  KEY0:Read");	//ÏÔÊ¾ÌáÊ¾ĞÅÏ¢		
- 	while(AT24CXX_Check())//¼ì²â²»µ½24c02
+	LCD_ShowString(30,130,200,16,16,"KEY1:Write  KEY0:Read");	//æ˜¾ç¤ºæç¤ºä¿¡æ¯		
+ 	while(AT24CXX_Check())//æ£€æµ‹ä¸åˆ°24c02
 	{
 		LCD_ShowString(30,150,200,16,16,"24C02 Check Failed!");
 		delay_ms(500);
 		LCD_ShowString(30,150,200,16,16,"Please Check!      ");
 		delay_ms(500);
-		LED0=!LED0;//DS0ÉÁË¸
+		LED0=!LED0;//DS0é—ªçƒ
 	}
 	LCD_ShowString(30,150,200,16,16,"24C02 Ready!");    
- 	POINT_COLOR=BLUE;//ÉèÖÃ×ÖÌåÎªÀ¶É«
+ 	POINT_COLOR=BLUE;//è®¾ç½®å­—ä½“ä¸ºè“è‰²
     num	= 0;
     AT24CXX_Read(50,&num,1);    
 	while(1)
 	{
 		key=KEY_Scan(0);
-		if(key==KEY1_PRES)//KEY1°´ÏÂ,Ğ´Èë24C02
+		if(key==KEY1_PRES)//KEY1æŒ‰ä¸‹,å†™å…¥24C02
 		{
-			LCD_Fill(0,170,239,319,WHITE);//Çå³ı°ëÆÁ    
+			LCD_Fill(0,170,239,319,WHITE);//æ¸…é™¤åŠå±    
  			LCD_ShowString(30,170,200,16,16,"Start Write 24C02....");
 			AT24CXX_Write(0,(u8*)TEXT_Buffer,SIZE);
-			LCD_ShowString(30,170,200,16,16,"24C02 Write Finished!");//ÌáÊ¾´«ËÍÍê³É
+			LCD_ShowString(30,170,200,16,16,"24C02 Write Finished!");//æç¤ºä¼ é€å®Œæˆ
 		}
-		if(key==KEY0_PRES)//KEY0°´ÏÂ,¶ÁÈ¡×Ö·û´®²¢ÏÔÊ¾
+		if(key==KEY0_PRES)//KEY0æŒ‰ä¸‹,è¯»å–å­—ç¬¦ä¸²å¹¶æ˜¾ç¤º
 		{
  			LCD_ShowString(30,170,200,16,16,"Start Read 24C02.... ");
 			AT24CXX_Read(0,datatemp,SIZE);
             AT24CXX_Write(50,&num,1);
             AT24CXX_Read(50,&num,1);
             num++;
-			LCD_ShowString(30,170,200,16,16,"The Data Readed Is:  ");//ÌáÊ¾´«ËÍÍê³É
-			LCD_ShowString(30,190,200,16,16,datatemp);//ÏÔÊ¾¶Áµ½µÄ×Ö·û´®
-           // LCD_ShowString(30,190,200,16,16,num+0x30);//ÏÔÊ¾¶Áµ½µÄ×Ö·û´®
+			LCD_ShowString(30,170,200,16,16,"The Data Readed Is:  ");//æç¤ºä¼ é€å®Œæˆ
+			LCD_ShowString(30,190,200,16,16,datatemp);//æ˜¾ç¤ºè¯»åˆ°çš„å­—ç¬¦ä¸²
+           // LCD_ShowString(30,190,200,16,16,num+0x30);//æ˜¾ç¤ºè¯»åˆ°çš„å­—ç¬¦ä¸²
             
-            LCD_Fill(0,210,20,319,WHITE);//Çå³ı°ëÆÁ    
+            LCD_Fill(0,210,20,319,WHITE);//æ¸…é™¤åŠå±    
             LCD_ShowxNum(30,210,num,3,16,0);
 		}
 		i++;
 		delay_ms(10);
 		if(i==20)
 		{
-			LED0=!LED0;//ÌáÊ¾ÏµÍ³ÕıÔÚÔËĞĞ	
+			LED0=!LED0;//æç¤ºç³»ç»Ÿæ­£åœ¨è¿è¡Œ	
 			i=0;
 		}		   
 	} 	    
