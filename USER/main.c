@@ -7,15 +7,6 @@
 #include "key.h"  
 
 
-//ALIENTEK 探索者STM32F407开发板 实验24
-//IIC 实验 --库函数版本
-//技术支持：www.openedv.com
-//淘宝店铺：http://eboard.taobao.com  
-//广州市星翼电子科技有限公司  
-//作者：正点原子 @ALIENTEK
-
-
-
 //要写入到24c02的字符串数组
 const u8 TEXT_Buffer[]={"Explorer STM32F4 IIC TEST"};
 #define SIZE sizeof(TEXT_Buffer)	 
@@ -23,6 +14,7 @@ const u8 TEXT_Buffer[]={"Explorer STM32F4 IIC TEST"};
 int main(void)
 { 
     u16 h111;
+     u16 h222;
 	u8 key;
 	u16 i=0;
     u8 num;
