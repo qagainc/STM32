@@ -14,10 +14,6 @@ const u8 TEXT_Buffer[]={"Explorer STM32F4 IIC TEST"};
 int main(void)
 { 
     u16 h111;
-     u16 h222;
-    u16 h333;
-    u16 h555; 
-    u16 h666;
 	u8 key;
 	u16 i=0;
     u8 num;
